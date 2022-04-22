@@ -1,28 +1,20 @@
-graph = Array.from(Array(3), () => Array.from(Array(4), () => Array(2).fill(0)));
+const readline = require('readline');
 
-// let input = "1 2 3 4".split(' ').map(Number);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-// let col = 0;
-// let row = 0;
-// let h = 0;
+let a, b;
 
-// input.forEach(element => {
-//     graph[row][col][h] = element;
-//     col += 1;
-// })
+rl.on('line', (input) => {
+    [a, b] = input.split(' ');
+    a = BigInt(a);
+    b = BigInt(b);
+    rl.close();
+});
 
-// row += 1;
-
-// input = "4 3 2 1".split(' ').map(Number);
-
-// col = 0;
-// input.forEach(element => {
-//     graph[row][col][h] = element;
-//     col += 1;
-// })
-
-print(graph)
-
-function print(a) {
-    console.log(a);
-}
+rl.on('close', () => {
+    console.log((a+b).toString());
+    process.exit();
+});
