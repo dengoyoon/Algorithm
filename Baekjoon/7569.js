@@ -45,14 +45,6 @@ const bfs = (vArr) => {
                 queueLength += 1;
             }
         }
-        // graph[out.x][out.y][out.z].forEach( element => {
-        //     if(!visited[element.x][element.y][element.z]) {
-                // periodArray[element.x][element.y][element.z] = periodArray[out.x][out.y][out.z] + 1;
-                // queue.push(element);
-                // queueLength += 1;
-        //         visited[element.x][element.y][element.z] = true;
-        //     }
-        // });
     }
 }
 
