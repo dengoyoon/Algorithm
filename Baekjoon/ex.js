@@ -7,14 +7,22 @@ const rl = readline.createInterface({
 
 let a, b;
 
+const ff = () => {
+  a = [1,2,3,4,5];
+  a.forEach(e => {
+    if (e == 3) {
+      return 100;
+    }
+  })
+  return 0;
+}
+
 rl.on('line', (input) => {
-    [a, b] = input.split(' ');
-    a = BigInt(a);
-    b = BigInt(b);
+    
     rl.close();
 });
 
 rl.on('close', () => {
-    console.log((a+b).toString());
+    console.log(ff());
     process.exit();
 });

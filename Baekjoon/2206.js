@@ -12,7 +12,6 @@ let wallMap = [];
 let visited;
 const dx = [-1, 1, 0, 0];
 const dy = [0, 0, -1, 1];
-let min = Number.MAX_VALUE;
 
 const bfs = (v) => {
     const queue = [v];
