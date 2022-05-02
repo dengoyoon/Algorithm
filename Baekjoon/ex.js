@@ -7,15 +7,12 @@ const rl = readline.createInterface({
 
 let a, b;
 
-const ff = () => {
-  a = [1,2,3,4,5];
-  a.forEach(e => {
-    if (e == 3) {
-      return 100;
-    }
-  })
-  return 0;
-}
+const points = [{x: 8, y: 4}, {x: 7, y: 4}, {x: 3, y: 9}, {x: 5, y: 3}];
+points.sort((a, b) => {
+  return a.x - b.x;
+})
+
+console.log(points);
 
 rl.on('line', (input) => {
     
