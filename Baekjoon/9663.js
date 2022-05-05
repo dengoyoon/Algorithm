@@ -5,7 +5,11 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+let N;
+let chessBoard;
+
 rl.on('line', (input) => {
+    N = parseInt(input);
     
     rl.close();
 });
@@ -13,6 +17,3 @@ rl.on('line', (input) => {
 rl.on('close', () => {
     process.exit();
 });
-
-a = [1,2,3];
-console.log(Math.max(...a));
