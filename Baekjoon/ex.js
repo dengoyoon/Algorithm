@@ -13,6 +13,3 @@ rl.on('line', (input) => {
 rl.on('close', () => {
     process.exit();
 });
-
-a = [1,2,3];
-console.log(Math.max(...a));
