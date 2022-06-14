@@ -9,7 +9,6 @@ const rl = readline.createInterface({
 
 let N;
 const strings = [];
-const answers = [];
 
 function isPalindrome(str) {
     let leftIndex = 0;
@@ -22,9 +21,6 @@ function isPalindrome(str) {
             rightIndex -= 1;
         } else {
             if (str[leftIndex + 1] == str[rightIndex] && str[leftIndex] == str[rightIndex - 1]) {
-                // palindrome += 1;
-                // leftIndex += 1;
-                // rightIndex -= 1;
                 if (palindrome == 1) {
                     return 2;
                 } else {
@@ -68,7 +64,3 @@ rl.on('close', () => {
     })
     process.exit();
 });
-
-// ababbabaa
-// abca
-
