@@ -1,3 +1,5 @@
+// DFS, 내리막길
+
 const readline = require('readline');
 
 const rl = readline.createInterface({

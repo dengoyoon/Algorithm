@@ -1,3 +1,5 @@
+// BFS, 나이트의 이동
+
 const readline = require('readline');
 
 const rl = readline.createInterface({
