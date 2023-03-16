@@ -1,30 +1,25 @@
-const log = console.log;
+const dfs = (dungeons, node, visited) => {
+  visited = [...visited];
+  const [nodeIndex, nodeMin, nodeConsumption, nodeK] = node;
+  let max = 0;
 
-const bfs = (node, dungeons) => {
-  const queue = [node];
-  const visited = [...Array(dungeons.length).fill(0)];
-  visited[node[0]] = 1;
+  if (visited[nodeIndex]) return 1;
 
-  for (const [frontIndex, frontMin, frontConsumption, frontK] of queue) {
-    dungeons
-      .filter(([nextIndex]) => nextIndex !== frontIndex)
-      .filter(([_, nextMin]) => frontK >= nextMin)
-      .filter(
-        ([nextIndex]) =>
-          visited[nextIndex] === 0 ||
-          visited[nextIndex] < visited[frontIndex] + 1
-      )
-      .forEach(([nextIndex, nextMin, nextConsumption]) => {
-        visited[nextIndex] = visited[frontIndex] + 1;
-        queue.push([
-          nextIndex,
-          nextMin,
-          nextConsumption,
-          frontK - nextConsumption,
-        ]);
-      });
-  }
-  return Math.max(...visited);
+  visited[nodeIndex] = true;
+
+  dungeons
+    .filter(([_, nextMin]) => nodeK >= nextMin)
+    .forEach(([nextIndex, nextMin, nextConsumption]) => {
+      const distance =
+        1 +
+        dfs(
+          dungeons,
+          [nextIndex, nextMin, nextConsumption, nodeK - nextConsumption],
+          visited
+        );
+      max = max < distance ? distance : max;
+    });
+  return max === 0 ? 1 : max;
 };
 
 function solution(k, dungeons) {
@@ -37,5 +32,9 @@ function solution(k, dungeons) {
       k - consumption,
     ]);
 
-  return Math.max(...dungeons.map((node) => bfs(node, dungeons)));
+  return Math.max(
+    ...dungeons.map((dungeon) =>
+      dfs(dungeons, dungeon, [...Array(dungeons.length).fill(false)])
+    )
+  );
 }
