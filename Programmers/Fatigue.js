@@ -7,6 +7,7 @@ const bfs = (node, dungeons) => {
 
   for (const [frontIndex, frontMin, frontConsumption, frontK] of queue) {
     dungeons
+      .filter(([nextIndex]) => nextIndex !== frontIndex)
       .filter(([_, nextMin]) => frontK >= nextMin)
       .filter(
         ([nextIndex]) =>
@@ -15,14 +16,12 @@ const bfs = (node, dungeons) => {
       )
       .forEach(([nextIndex, nextMin, nextConsumption]) => {
         visited[nextIndex] = visited[frontIndex] + 1;
-        console.log(frontIndex, visited);
         queue.push([
           nextIndex,
           nextMin,
           nextConsumption,
           frontK - nextConsumption,
         ]);
-        // console.log("queue", queue)
       });
   }
   return Math.max(...visited);
@@ -38,6 +37,5 @@ function solution(k, dungeons) {
       k - consumption,
     ]);
 
-  // return dungeons.map(node => bfs(node, dungeons));
-  return bfs(dungeons[0], dungeons);
+  return Math.max(...dungeons.map((node) => bfs(node, dungeons)));
 }
