@@ -7,18 +7,20 @@ const dfs = (dungeons, node, visited) => {
 
   visited[nodeIndex] = true;
 
-  dungeons
-    .filter(([_, nextMin]) => nodeK >= nextMin)
-    .forEach(([nextIndex, nextMin, nextConsumption]) => {
-      const distance =
-        1 +
-        dfs(
-          dungeons,
-          [nextIndex, nextMin, nextConsumption, nodeK - nextConsumption],
-          visited
-        );
-      max = max < distance ? distance : max;
-    });
+  const filteredDungeons = dungeons
+    .filter(([nextIndex]) => nextIndex !== nodeIndex)
+    .filter(([_, nextMin]) => nodeK >= nextMin);
+
+  filteredDungeons.forEach(([nextIndex, nextMin, nextConsumption]) => {
+    const distance =
+      1 +
+      dfs(
+        filteredDungeons,
+        [nextIndex, nextMin, nextConsumption, nodeK - nextConsumption],
+        visited
+      );
+    max = max < distance ? distance : max;
+  });
   return max === 0 ? 1 : max;
 };
 
