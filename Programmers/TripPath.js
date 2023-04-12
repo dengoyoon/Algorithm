@@ -1,36 +1,35 @@
-const dfs = (node, ticketMap) => {
-  const path = [node];
-  const nextLocations = ticketMap.get(node);
-  const ticketLength = [...ticketMap.values()].flat().length;
+const dfs = (ticketGraph, node) => {
+  const result = [];
+  const pathLength = [...Object.values(ticketGraph)].flat().length + 1;
+  const isLeaf = (node) => ticketGraph[node.arrival] === undefined;
 
-  if (nextLocations === undefined) return path;
-  else {
-    nextLocations.map((location) => [...dfs(location, ticketMap)]);
-    // .filter(nextPath => )
-  }
+  const recursive = (node) => {
+    if (node.visited) return;
 
-  if (path.length === ticketLength) return path;
-  else return [];
-  // if (nextLocation === undefined)
-  //     return path;
-  //     if (nextLocation.length !== 0) {
-  //         ticketMap.set(node, nextLocation.slice(1));
+    node.visited = true;
+    result.push(node.arrival);
 
-  //         path.push(...dfs(nextLocation[0], ticketMap));
-  //     }
-  //     return path;
+    for (const nextNode of ticketGraph[node.arrival]) {
+      if (!isLeaf(nextNode)) recursive(nextNode);
+      else if (result.length + 1 === pathLength) {
+        nextNode.visited = true;
+        result.push(nextNode.arrival);
+        return;
+      }
+    }
+  };
+
+  recursive(node);
+  return result;
 };
 
 function solution(tickets) {
-  const ticketMap = new Map();
-  tickets.forEach(([start, end]) => {
-    if (ticketMap.get(start))
-      ticketMap.set(
-        start,
-        [...ticketMap.get(start), end].sort((a, b) => (a > b ? 1 : -1))
-      );
-    else ticketMap.set(start, [end]);
-  });
-  console.log(ticketMap);
-  // return dfs('ICN', ticketMap);
+  const ticketGraph = tickets.reduce((acc, [departure, arrival]) => {
+    acc[departure] = (acc[departure] ?? [])
+      .concat({ arrival, visited: false })
+      .sort((a, b) => a.arrival.localeCompare(b.arrival));
+    return acc;
+  }, {});
+
+  return dfs(ticketGraph, { arrival: "ICN" });
 }
