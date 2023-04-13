@@ -1,35 +1,32 @@
-const dfs = (ticketGraph, node) => {
+Array.prototype.top = function () {
+  return this[this.length - 1];
+};
+
+const dfs = (ticketGraph, startNode) => {
+  const stack = [startNode];
   const result = [];
-  const pathLength = [...Object.values(ticketGraph)].flat().length + 1;
-  const isLeaf = (node) => ticketGraph[node.arrival] === undefined;
 
-  const recursive = (node) => {
-    if (node.visited) return;
-
-    node.visited = true;
-    result.push(node.arrival);
-
-    for (const nextNode of ticketGraph[node.arrival]) {
-      if (!isLeaf(nextNode)) recursive(nextNode);
-      else if (result.length + 1 === pathLength) {
-        nextNode.visited = true;
-        result.push(nextNode.arrival);
-        return;
-      }
-    }
-  };
-
-  recursive(node);
-  return result;
+  while (stack) {
+    const departure = stack.top();
+  }
 };
 
 function solution(tickets) {
+  tickets = [
+    ["ICN", "SFO"],
+    ["SFO", "ICN"],
+    ["ICN", "SFO"],
+    ["SFO", "AAA"],
+    ["AAA", "BBB"],
+  ];
   const ticketGraph = tickets.reduce((acc, [departure, arrival]) => {
     acc[departure] = (acc[departure] ?? [])
-      .concat({ arrival, visited: false })
-      .sort((a, b) => a.arrival.localeCompare(b.arrival));
+      .concat(arrival)
+      .sort((a, b) => b.localeCompare(a));
     return acc;
   }, {});
 
-  return dfs(ticketGraph, { arrival: "ICN" });
+  console.log(ticketGraph);
+
+  // return dfs(ticketGraph, {arrival : "ICN"});
 }
