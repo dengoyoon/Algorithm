@@ -1,8 +1,6 @@
 const convertIndexArray = (skill, skillTree) =>
   [...skill].map((sk) => [...skillTree].indexOf(sk));
 
-const isNothing = (arr) => arr.filter((a) => a !== -1).length === 0;
-
 const isPrior = (arr) => {
   const findLength = arr.filter((a) => a !== -1).length;
   if (arr.length === findLength) return true;
